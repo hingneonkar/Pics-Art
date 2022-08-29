@@ -12,7 +12,7 @@ body{
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background: url('/gradienta-xOcfppTFdcU-unsplash.jpg');
+  background: url('https://images.unsplash.com/photo-1534576409036-67c54bb86bba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI4fHxzZWF8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 100% 100%;  
@@ -25,12 +25,9 @@ body{
 }
 
 article{
-   background: #4568DC;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #B06AB3, #4568DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+color: rgb(252, 252, 252);                  
+  /* -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
   text-align: center;
 }
 .container{
@@ -169,12 +166,19 @@ background: linear-gradient(to right, #5FC3E4, #E55D87); /* W3C, IE 10+/ Edge, F
 }
 
 .controls .reset-filter{
+  background: #E0EAFC;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   color: #0c0d0e;
   border: 1px solid #6C757D;
 }
 .controls .reset-filter:hover{
   color: rgb(241, 234, 234);
-  background: #27292a;
+  background: #E55D87;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #5FC3E4, #E55D87);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #5FC3E4, #E55D87); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
 }
 .controls .choose-img{
   background: #6C757D;
