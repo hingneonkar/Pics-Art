@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Pics-Art Pics-Editor</title>
     <link rel="shortcut icon" href="/icons8-photo-64.png" type="image/x-icon">
-    <link rel="stylesheet" href="Pics-Art.css">
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
@@ -19,7 +19,7 @@
         <div class="wrapper">
             <div class="editor-panel">
                 <div class="filter">
-                    <label class="title">Filters</label>
+                    <label class="title" style="color: white;"><b>Filters</b>></label>
                     <div class="options">
                         <button id="brightness" class="active">Brightness</button>
                         <button id="saturation">Saturation</button>
@@ -28,14 +28,14 @@
                     </div>
                     <div class="slider">
                         <div class="filter-info">
-                            <p class="name">Brighteness</p>
+                            <p class="name"style="color: white; "><b>Brighteness</b></p>
                             <p class="value">100%</p>
                         </div>
                         <input type="range" value="100" min="0" max="200">
                     </div>
                 </div>
                 <div class="rotate">
-                    <label class="title">Rotate & Flip</label>
+                    <label class="title" style="color: white; " ><b>Rotate & Flip</b></label>
                     <div class="options">
                         <button id="left"><i class="fa-solid fa-rotate-left"></i></button>
                         <button id="right"><i class="fa-solid fa-rotate-right"></i></button>
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <script src="Pics-Art.js"></script>
+    <script src="script.js"></script>
     
   </body>
 </html>
