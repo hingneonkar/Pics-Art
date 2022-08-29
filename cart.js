@@ -1,45 +1,118 @@
+const fileInput = document.querySelector(".file-input"),
+filterOptions = document.querySelectorAll(".filter button"),
+filterName = document.querySelector(".filter-info .name"),
+filterValue = document.querySelector(".filter-info .value"),
+filterSlider = document.querySelector(".slider input"),
+rotateOptions = document.querySelectorAll(".rotate button"),
+previewImg = document.querySelector(".preview-img img"),
+resetFilterBtn = document.querySelector(".reset-filter"),
+chooseImgBtn = document.querySelector(".choose-img"),
+saveImgBtn = document.querySelector(".save-img");
 
+let brightness = "100", saturation = "100", inversion = "0", grayscale = "0";
+let rotate = 0, flipHorizontal = 1, flipVertical = 1;
 
-// active navbar
-let nav = document.querySelector(".navigation-wrap");
-window.onscroll = function () {
-    if(document.documentElement.scrollTop  > 20){
-        nav.classList.add("scroll-on");
-    }else{
-        nav.classList.remove("scroll-on");
-    }
+const loadImage = () => {
+    let file = fileInput.files[0];
+    if(!file) return;
+    previewImg.src = URL.createObjectURL(file);
+    previewImg.addEventListener("load", () => {
+        resetFilterBtn.click();
+        document.querySelector(".container").classList.remove("disable");
+    });
 }
 
-// nav hide 
-let navBar = document.querySelectorAll('.nav-link');
-let navCollapse = document.querySelector('.navbar-collapse.collapse');
-navBar.forEach(function(a){
-    a.addEventListener("click", function(){
-        navCollapse.classList.remove("show");
-    })
-})
- 
-// counter design
- document.addEventListener("DOMContentLoaded", () => {
-    function counter(id, start, end, duration){
-        let obj = document.getElementById(id),
-        current = start,
-        range = end - start,
-        increment = end > start ? 1 : -1,
-        step = Math.abs(Math.floor(duration /  range)),
-        timer = setInterval(() => {
-            current += increment;
-            obj.textContent = current;
-            if(current == end){
-                clearInterval(timer);
-            }
-        }, step);
-    }
-    counter("count1", 0, 120, 3000);
-    counter("count2", 100, 200, 2500);
-    counter("count3", 0, 400, 3000);
-    counter("count4", 0, 1000, 3000);
- });
-   
-   
+const applyFilter = () => {
+    previewImg.style.transform = `rotate(${rotate}deg) scale(${flipHorizontal}, ${flipVertical})`;
+    previewImg.style.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
+}
 
+filterOptions.forEach(option => {
+    option.addEventListener("click", () => {
+        document.querySelector(".active").classList.remove("active");
+        option.classList.add("active");
+        filterName.innerText = option.innerText;
+
+        if(option.id === "brightness") {
+            filterSlider.max = "200";
+            filterSlider.value = brightness;
+            filterValue.innerText = `${brightness}%`;
+        } else if(option.id === "saturation") {
+            filterSlider.max = "200";
+            filterSlider.value = saturation;
+            filterValue.innerText = `${saturation}%`
+        } else if(option.id === "inversion") {
+            filterSlider.max = "100";
+            filterSlider.value = inversion;
+            filterValue.innerText = `${inversion}%`;
+        } else {
+            filterSlider.max = "100";
+            filterSlider.value = grayscale;
+            filterValue.innerText = `${grayscale}%`;
+        }
+    });
+});
+
+const updateFilter = () => {
+    filterValue.innerText = `${filterSlider.value}%`;
+    const selectedFilter = document.querySelector(".filter .active");
+
+    if(selectedFilter.id === "brightness") {
+        brightness = filterSlider.value;
+    } else if(selectedFilter.id === "saturation") {
+        saturation = filterSlider.value;
+    } else if(selectedFilter.id === "inversion") {
+        inversion = filterSlider.value;
+    } else {
+        grayscale = filterSlider.value;
+    }
+    applyFilter();
+}
+
+rotateOptions.forEach(option => {
+    option.addEventListener("click", () => {
+        if(option.id === "left") {
+            rotate -= 90;
+        } else if(option.id === "right") {
+            rotate += 90;
+        } else if(option.id === "horizontal") {
+            flipHorizontal = flipHorizontal === 1 ? -1 : 1;
+        } else {
+            flipVertical = flipVertical === 1 ? -1 : 1;
+        }
+        applyFilter();
+    });
+});
+
+const resetFilter = () => {
+    brightness = "100"; saturation = "100"; inversion = "0"; grayscale = "0";
+    rotate = 0; flipHorizontal = 1; flipVertical = 1;
+    filterOptions[0].click();
+    applyFilter();
+}
+
+const saveImage = () => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = previewImg.naturalWidth;
+    canvas.height = previewImg.naturalHeight;
+    
+    ctx.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    if(rotate !== 0) {
+        ctx.rotate(rotate * Math.PI / 180);
+    }
+    ctx.scale(flipHorizontal, flipVertical);
+    ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+    
+    const link = document.createElement("a");
+    link.download = "image.jpg";
+    link.href = canvas.toDataURL();
+    link.click();
+}
+
+filterSlider.addEventListener("input", updateFilter);
+resetFilterBtn.addEventListener("click", resetFilter);
+saveImgBtn.addEventListener("click", saveImage);
+fileInput.addEventListener("change", loadImage);
+chooseImgBtn.addEventListener("click", () => fileInput.click());
