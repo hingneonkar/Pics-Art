@@ -223,9 +223,7 @@ background: linear-gradient(to right, #5FC3E4, #E55D87); /* W3C, IE 10+/ Edge, F
     margin-bottom: 10px;
   }
  
-  body{
-    background-image: none;
-  }
+ 
   .controls .row{
     width: 100%;
   }
